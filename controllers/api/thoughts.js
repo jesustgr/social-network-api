@@ -1,6 +1,8 @@
+// thought routes go here
 const router = require('express').Router();
 const { User, Thought } = require("../../models");
 
+// Get all thoughts '/'     //  /api/thoughts/
 router.get('/', async (req,res)=>{
     try{
         const allThoughts = await Thought.find({});
@@ -10,6 +12,8 @@ router.get('/', async (req,res)=>{
         res.status(500).json(error);
     }
 });
+
+//  Get thought by _id '/:id'        //    /api/thoughts/:id
 
 router.get('/:id', async (req,res)=>{
     try{
@@ -29,6 +33,8 @@ router.get('/:id', async (req,res)=>{
     }
 });
 
+//  Post create new thought '/'    //      /api/thoughts/
+
 router.post('/', async (req,res)=>{
     try{
         const newThought = await Thought.create(req.body);
@@ -47,6 +53,8 @@ router.post('/', async (req,res)=>{
     }
 });
 
+//  Put update a thought by _id  '/:id'   //      /api/thoughts/:id
+
 router.put('/:id', async (req,res)=>{
     try{
         const foundThought = await Thought.findOneAndUpdate(
@@ -61,6 +69,8 @@ router.put('/:id', async (req,res)=>{
         res.status(500).json(error);
     }
 })
+
+//  Delete a thought by _id   '/:id'      //      /api/thoughts/:id
 
 router.delete('/:id', async (req,res)=>{
     try{
@@ -83,6 +93,8 @@ router.delete('/:id', async (req,res)=>{
     }
 });
 
+// Post create new reaction to `thoughtId`   '/:thoughtId/reactions'
+
 router.post('/:id/reactions', async (req,res)=>{
     try{
         const updatedThought = await Thought.findOneAndUpdate(
@@ -101,6 +113,8 @@ router.post('/:id/reactions', async (req,res)=>{
         res.status(500).json(error);
     }
 })
+
+// Delete reaction through reactionId to `thoughtId`   '/:thoughtId/reactions/:reactionId'
 
 router.delete('/:thoughtId/reactions/:reactionId', async (req,res)=>{
     try{
